@@ -1,0 +1,1 @@
+Switch Presence_Smart_Plug_Rack "Smart Plug do Rack" <network> { channel="network:pingdevice:cb54621c:online" }

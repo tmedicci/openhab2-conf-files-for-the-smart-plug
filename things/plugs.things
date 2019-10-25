@@ -1,0 +1,4 @@
+// "%2$s" will be replace by the input channel command, this makes it possible to use one command line with different arguments.
+// e.g: "ls" as <YOUR COMMAND> and "-a" or "-l" as additional argument set to the input channel in the rule.
+Thing exec:command:read_639F91 [ command="sh /etc/openhab2/plug.sh 639F91", interval=15, autorun=false ]
+Thing exec:command:write_639F91 [ command="sh /etc/openhab2/plug.sh 639F91 %2$s", interval=0, autorun=true ]

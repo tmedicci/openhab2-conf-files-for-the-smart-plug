@@ -1,0 +1,12 @@
+sitemap plugs  label="Wireless Poweroutlets"
+{
+    Frame label="Poweroutlets"
+    {
+        Switch item=Gplugs label="All Power Plugs"
+        Text item=PlaceHolder label="" icon="none"
+        Switch item=Plug_639F91 label="Plug 639F91"
+        //Switch item=Power_Plug_Socket_2 label="Power Plug B"
+        //Switch item=Power_Plug_Socket_3 label="Power Plug C"
+        //Switch item=Power_Plug_Socket_4 label="Power Plug D"
+    }
+}

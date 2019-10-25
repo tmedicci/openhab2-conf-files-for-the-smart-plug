@@ -1,0 +1,40 @@
+rule "Send command to Plugs"
+when
+    Member of Gplugs received command
+then
+    // Get the item which triggered the rule
+    // Split the name and get the second part, the number to set as command.
+    val plug = triggeringItem.name.toString.split("Plug_").get(1) 
+    logInfo("Power_Plug", "Plug: " + plug )
+
+    // Set the command which should be executed to the output channel 
+    // Auto trigger will then execute the Thing.
+    if (plug == "639F91") {
+        // the Run indicator state will go ON shortly, and return OFF when script finished
+        if (receivedCommand == ON) 
+            In_write_639F91.sendCommand("ON")
+        else In_write_639F91.sendCommand("OFF")
+        
+        while (In_write_639F91.state != OFF) {
+            Thread::sleep(100)
+        }
+
+        if (Out_write_639F91.state == "true")
+            Plug_639F91.postUpdate(ON)    
+        else if (Out_write_639F91.state == "false")
+            Plug_639F91.postUpdate(OFF)
+    }    
+end
+
+
+rule "Process smartplug639F91 results"
+when
+   Item Run_read_639F91 changed from ON to OFF
+then
+    // Logging of raw command line result
+    logInfo("Your command exec", "Result:" + Out_read_639F91.state)
+    if (Out_read_639F91.state == "true")
+        Plug_639F91.postUpdate(ON)    
+    else if (Out_read_639F91.state == "false")
+        Plug_639F91.postUpdate(OFF)
+end

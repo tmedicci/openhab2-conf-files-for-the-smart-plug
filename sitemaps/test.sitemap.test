@@ -1,0 +1,4 @@
+sitemap test label="My first sitemap"
+{
+    Switch item=Presence_Smart_Plug_Rack label="Smart Plug do Rack"
+}

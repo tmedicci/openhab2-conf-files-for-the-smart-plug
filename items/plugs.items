@@ -1,0 +1,20 @@
+// RF Socket Items
+Group:Switch:OR(OFF, ON) Gplugs <poweroutlet>
+
+Switch Plug_639F91 <poweroutlet> (Gplugs)
+//Switch Power_Plug_Socket_2 <poweroutlet> (Gplugs)
+//Switch Power_Plug_Socket_3 <poweroutlet> (Gplugs)
+//Switch Power_Plug_Socket_4 <poweroutlet> (Gplugs)
+//String PlaceHolder ""
+
+// state of the execution, is running or finished
+Switch Run_read_639F91      { channel="exec:command:read_639F91:run"    }
+Switch Run_write_639F91     { channel="exec:command:write_639F91:run"   }
+
+// Arguments to be placed for '%2$s' in command line
+String In_read_639F91       { channel="exec:command:read_639F91:input"  }
+String In_write_639F91      { channel="exec:command:write_639F91:input" }
+
+// Output of command line execution 
+String Out_read_639F91      { channel="exec:command:read_639F91:output" }
+String Out_write_639F91     { channel="exec:command:write_639F91:output" }
