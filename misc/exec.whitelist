@@ -1,0 +1,2 @@
+sh /etc/openhab2/plug.sh 639F91
+sh /etc/openhab2/plug.sh 639F91 %2$s

@@ -8,21 +8,22 @@ if [ -z "$MAC" ]; then
     exit 1
 fi
 
-CURRENT_STATE=$(curl -s "http://smartplug${MAC}.local:8080/API/configData" | jq -r ".relay_state")
-if [ "$CURRENT_STATE" != "false" ] && [ "$CURRENT_STATE" != "true" ]; then
-    exit 1
-fi
-
 REFRESHED_STATE="null"
 
-if [ "$2" = "ON" ] && [ "$CURRENT_STATE" = "false" ]; then
+if [ "$2" = "ON" ]; then
     #TODO: test if curl exits before piping to jq.
     REFRESHED_STATE=$(curl -s "http://smartplug${MAC}.local:8080/API/relay" --header "Content-Type: application/json" --data "{\"timestamp\": $(date +%s),\"relay_state\":true}" | jq -r ".relay")
 else
-    if [ "$2" = "OFF" ] && [ "$CURRENT_STATE" = "true" ]; then
+    if [ "$2" = "OFF" ]; then
         REFRESHED_STATE=$(curl -s "http://smartplug${MAC}.local:8080/API/relay" --header "Content-Type: application/json" --data "{\"timestamp\": $(date +%s),\"relay_state\":false}" | jq -r ".relay")
     else 
-        echo "$CURRENT_STATE"
+        CURRENT_STATE=$(curl -s "http://smartplug${MAC}.local:8080/API/configData" | jq -r ".relay_state")
+        if [ "$CURRENT_STATE" != "false" ] && [ "$CURRENT_STATE" != "true" ]; then
+            exit 1
+        else
+            echo "$CURRENT_STATE"
+            exit 0
+        fi
     fi
 fi
 
@@ -31,5 +32,4 @@ if [ "$REFRESHED_STATE" != "false" ] && [ "$REFRESHED_STATE" != "true" ]; then
 fi
 
 echo "$REFRESHED_STATE"
-
 exit 0
