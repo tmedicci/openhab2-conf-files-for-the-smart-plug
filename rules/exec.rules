@@ -1,0 +1,7 @@
+rule "exec whitelist workaround"
+when
+    System started
+then
+    executeCommandLine("/bin/touch /etc/openhab2/misc/exec.whitelist")
+end
+
